@@ -1,0 +1,52 @@
+<section class="hero is-small is-primary is-bold">
+  <div class="hero-body">
+    <div class="container is-fluid">
+      <section class="section">
+        <h1 class="title">
+          <i class="fa fa-chart-network"></i> Flimma
+        </h1>
+      </section>
+    </div>
+  </div>
+</section>
+
+<div class="container is-fluid">
+  <section class="section">
+    <div class="card" style="text-align: justify">
+      <div class="card-content">
+        <div class="content">
+          <p>
+            <b>Flimma</b> is the federated implementation of the popular differential expression analysis workflow <a href="https://f1000research.com/articles/5-1408/v3"><i><b>limma voom</b></i></a>. <b>Flimma</b> is based on <a href="https://github.com/TUM-AIMED/hyfed"><b>HyFed</b></a> framework.
+          </p>
+
+          <p>
+            <b>Flimma</b>  provides several advantages over the existing approaches for gene expression analysis. Unlike <i>limma voom</i>, <b>Flimma</b> by design preserves the privacy of the local data since the expression profiles never leave the local execution sites.
+          </p>
+
+          <figure>
+            <img src="assets/home_page/Fig1_abstract_v4.png" alt="Sign up"  width="1000"/>
+            <figcaption>The approaches for gene expression analysis in case of multi-center studies. Bold arrows show the exchange of raw data, dashed arrows - the exchange of model parameters or summary statistics. From https://arxiv.org/abs/2010.16403</figcaption>
+          </figure>
+
+          <p>
+            In contrast to meta-analysis approaches, <b>Flimma</b> is particularly robust against heterogeneous distributions of data across the different cohorts, which makes it a powerful alternative for multi-center studies where patient privacy matters.
+          </p>
+
+          <figure>
+            <img src="assets/home_page/Fig3A_Performace_TCGA.png" alt="Sign up"  width="1000"/>
+            <figcaption> The comparison of negative log-transformed p-values computed by Flimma and meta-analysis methods (y-axis) with p-values obtained by limma on the aggregated dataset (x-axis) in balanced and imbalanced scenarios.  From https://arxiv.org/abs/2010.16403</figcaption>
+          </figure>
+
+          <p>
+            For more information on how to use Flimma, please see our  <a href="https://www.exbio.wzw.tum.de/flimma/how-to">step-by-step guide</a> or watch the screencast below.
+          </p>
+
+          <div class="has-text-centered video">
+            <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/SuO3eoaYPVU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

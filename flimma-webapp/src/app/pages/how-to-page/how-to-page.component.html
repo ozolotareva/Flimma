@@ -1,0 +1,204 @@
+<section class="hero is-primary is-bold is-small">
+  <div class="hero-body">
+    <div class="container is-fluid">
+      <section class="section">
+        <h1 class="title">
+          <i class="fa fa-info"></i> How to
+        </h1>
+      </section>
+    </div>
+  </div>
+</section>
+
+<div class="container is-fluid">
+  <section class="section">
+    <div class="card">
+      <div class="card-content">
+        <div class="content">
+          <h2>Input Files Format</h2>
+          <p>
+            <b><i>Flimma</i></b> client accepts two input files:
+          </p>
+          <ul>
+            <li>tab-separated expression file with features names in rows and sample names in columns.<br>
+            This file should contain raw read counts quantified for each tested feature (gene, transcript, or exon) in each sample. </li>
+            <li>tab-separated design file with sample names in rows and contrast variables and covariates in columns.<br>
+            Sample names in the expression and the design files should match. </li>
+
+          </ul>
+
+	 <figure>
+            <img src="assets/how_to_page/inputs.png" alt="" height="400" width="1000"/>
+            <figcaption>Input files</figcaption>
+          </figure>
+
+
+          <h2>Quickstart Guide</h2>
+
+          <p>
+            A user of <b><i>Flimma</i></b> can be a coordinator, or a participant, or both.
+            The coordinator uses the web interface to create the project and tokens, and can view the results.
+            The participants employ the web interface only to sign up for the user account. They use client package to join the project,
+            perform the local computations on their local data, and download the results. In the following, we provide
+            you with a step-by-step guide on how to use <b><i>Flimma</i></b>.
+          </p>
+
+          <h3>Step - 1: Create User Account & Login</h3>
+          <p>
+            The first step to use <b><i>Flimma</i></b> is to create a user account
+            that will be associated with all projects a user either creates as coordinator or joins as participant. In this tutorial, we assume
+            there are two participants and one of them is a coordinator. If you have already created user accounts proceed to the next steps.
+          </p>
+
+          <p>
+            To create three aforementioned user accounts, go to
+            <a href="https://www.exbio.wzw.tum.de/flimma/account">sign up page</a> and enter the username and password
+            of each user twice to sign up.
+          </p>
+
+          <p><b>Important Note: </b> Usernames must be unique. It means that you need to use usernames other than what we used
+         If you have already created user accounts proceed to the next steps.</p>
+
+            <h3>Step - 2: Download</h3>
+
+             The second step is to download the appropriate client package based on the operating system of your machine using the following links:
+          <ul>
+              <li><a href="assets/flimma_client_linux.tar" download>Ubuntu/Linux Client</a></li>
+              <li><a href="assets/flimma_client_win64.exe" download>Microsoft Windows Client</a></li>
+              <li><a href="assets/flimma_client_mac.tar" download>Mac OS X Client</a></li>
+
+          </ul>
+
+          <p>
+            <b>Note: </b> <b><i>Flimma</i></b> client packages have been tested on Windows 10, Ubuntu 18.04, and Mac OS X 10. <br>
+          </p>
+
+	  <p>
+          Afterwards, download our <a href="assets/example_data.zip" download>example data</a>.
+          This example demonstrates the setup and launching of the project on the detection of genes differentially expressed between Luminal and Basal subtypes of breast cancer.
+	  The example dataset comprises two equal-sized cohorts of expression profiles and models collaboration between two clinical centers.
+          </p>
+	  <p>
+           Two cohorts include expression profiles of 50 and 52 tumor samples randomly chosen from TCGA-BRCA cohort, classified as luminal or basal subtype, and annotated with patient age at diagnosis and tumor stage.
+           Each client folder contains two files: one with the expressions of 20531 genes and the other with sample annotations in the form of design matrix.
+          </p>
+	
+
+          <h3>Step - 3: Project creation</h3>
+           <p>
+            The coordinator logs in using his/her account, creates a new project under the "Projects" tab, defines the study parameters, and invites the participants to join the project.
+            The coordinator is asked to specify the following project parameters prior to pressing the "Create" button:
+          </p>
+
+          <ul>
+            <li>Project name: an arbitrary name for the project, e.g. <i>"Lum vs Basal subtype"</i>, since in this tutorial,
+            the coordinator creates a project for the identification of genes differentially expressed between Luminal and Basal breast cancer subtypes.</li>
+	    <li>Normalization: choose the normalization method (only upper-quartile is available now).</li>
+            <li> <i>Minimum total count</i> and <i>minimum count</i> parameters for filtering of weakly expressed genes. <b><i>Flimma</i></b> implements <i>filterbyExprs</i> function which applies two filters: 1) removes genes with total expressions less than <i>minimum total count</i> and 2) removes genes expressed in insufficient number of samples. Gene is considedred to be expressed in a sample if it has more counts than the ratio of <i>minimum count</i> to the median library size multiplied by millon. In this example, we use defaults values of 15 and 10 for minimum total count and minimum count respectively. For more details on this filtering approach see <a href="https://bioconductor.org/packages/release/bioc/html/edgeR.html"> <i>filterByExprs()</i> documentation</a>.</li>
+	    <li>Contrast variables: names of the variable specifying samples membership in the groups which ,e.g. <i>"Lum"</i> and <i>"Basal"</i>.</li>
+	    <li>Confounding variables (covariates): a comma-separated list of names that should be considered as confounding factors in the study. The names should match (a) column name(s) in the design files uploaded by clients. In this example, <i>age at diagnosis</i> and <i>tumor stage</i> are considered as covariates.</li>
+          </ul>
+
+          <figure>
+          <img src="assets/how_to_page/create_project.png" alt="create project"  width="600"/>
+            <figcaption></figcaption>
+          </figure>
+
+	   <p>
+            After pressing <i>"Create"</i> button, the coordinator is directed to the project page. <br> 
+            There, he/she can see the project's information in <i>Project Summary</i> section and create tokens for all participants in <i>Participants</i> section.
+          </p>
+          
+          <figure>
+          <img src="assets/how_to_page/project_page.png" alt="project page" width="400"/>
+            <figcaption></figcaption>
+          </figure>
+
+
+          <h3>Step - 4: Tokens</h3>
+          <p>
+           When the coordinator created tokens for all participants, he/she can invite the participants sending them tokens and project id via e-mail.
+          </p> 
+          <p>
+	    In the "Participants" section, the coordinator gets an overview about tokens that have been created and/or are already
+            used by participants.
+            Additionally, the coordinator can delete tokens, thereby withdrawing the access to the project for the corresponding
+            client. 
+          </p>
+
+          <figure>
+          <img src="assets/how_to_page/created_tokens.png" alt="created tokens" height="350" width="600"/>
+            <figcaption></figcaption>
+          </figure>
+
+
+          <h3>Step - 5: Project joining and participation</h3>
+          <p>
+            After receiving a token from the coordinator, each participant follows three steps in order to successfully
+            join the project and participate in the computation:
+          </p>
+          <ol>
+            <li> Run the executable client package downloaded at step 2.</li>
+            <li> Enter user data (created at step 1), and token and project ID (got at step 4) into the
+            corresponding fields, ensure that server and compensator are chosen correctly, and press <i>"Join"</i>. 
+            <figure>
+          <img src="assets/how_to_page/client_join.png" alt="" height="300" width="400"/>
+            <figcaption></figcaption>
+          </figure>
+            <p>If join is successful, the names and roles of the participants will be shown to the coordinator. </p> 
+         <figure>       
+           <img src="assets/how_to_page/participants_joined.png" alt="" height="300" width="600"/>
+            <figcaption></figcaption>
+          </figure>     
+            <p>Project parameters defined by the coordinator,
+              will be retrieved automatically and shown to participants in a separate window of client GUI with <i>"Accept"</i> button.</p>
+         <figure>
+           <img src="assets/how_to_page/setup_window.png" alt="" height="300" width="400"/>
+            <figcaption></figcaption>
+          </figure>     
+            </li>
+            <li> After accepting project paprameters, define the path to raw counts and design files using <i>"Browse"</i> buttons and press <i>"Run"</i>.
+            
+          <figure>
+            <img src="assets/how_to_page/data_window.png" alt="" height="400" width="500"/>
+            <figcaption></figcaption>
+          </figure>
+          
+            </li>
+          </ol>
+
+          <p>
+          Next, the project status window appears and project is strating. Project status window displays the current project step and allows the client to view logs in a separate window or save it as file.  
+          </p>
+          
+          <figure>
+            <img src="assets/how_to_page/running_window.png" alt="running window" height="400" width="500"/>
+            <figcaption></figcaption>
+          </figure>
+
+          <h3>Step - 6: View Results</h3>
+	 <p>
+          After the project is completed, the coordinator can see the volcano plot and download the result <i>*.tsv</i> file  through the web interface.
+	 </p>
+	 
+          <figure>
+          <img src="assets/how_to_page/volcano.png" alt="" height="300" width="600"/>
+            <figcaption></figcaption>
+          </figure>
+          
+          <p>
+          For the participants, the archive with volcano plot and result table is automatically downloaded into a file 
+          <i>'result-[project_ID].zip'</i> in the same directory as the client package.
+           </p>
+
+
+          <figure>
+          <img src="assets/how_to_page/results_table.png" alt="result" height="300" width="800"/>
+            <figcaption>Result file content</figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

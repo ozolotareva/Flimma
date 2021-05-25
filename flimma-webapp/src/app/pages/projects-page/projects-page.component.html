@@ -1,0 +1,219 @@
+<section class="hero is-primary is-bold is-small">
+  <div class="hero-body">
+    <div class="container is-fluid">
+      <section class="section">
+        <h1 class="title">
+          <i class="fa fa-flask"></i> Projects
+        </h1>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- Create project panel -->
+<div class="container is-fluid">
+  <section class="section">
+    <div class="card">
+      <div class="card-content">
+        <div class="content">
+          <h3>Project</h3>
+
+          <p class="help">
+            The creator of the project will be the <b>coordinator</b>.
+          </p>
+
+          <!-- BEGIN  Flimma SPECIFIC TOOL SELECTION MENU -->
+          <div class="field">
+            <label class="label" for="npTool">Tool</label>
+            <div class="select">
+              <select class="input" [(ngModel)]="newProject.tool" id="npTool">
+                <option value="Select">Select</option>
+                <option value="Flimma">Flimma</option>
+              </select>
+            </div>
+          </div>
+          <!-- END Flimma SPECIFIC TOOL SELECTION MENU -->
+
+          <!-- BEGIN Flimma SPECIFIC ALGORITHM SELECTION MENU -->
+          <div class="field" *ngIf="newProject.tool === 'Flimma'">
+              <label class="label" for="npFlimmaAlgorithm">Algorithm</label>
+              <div class="select">
+                <select class="input" [(ngModel)]="newProject.algorithm" id="npFlimmaAlgorithm">
+                  <option value="Select">Select</option>
+                  <option value="Limma-Voom">limma voom</option>
+                </select>
+              </div>
+          </div>
+          <!-- END Flimma SPECIFIC ALGORITHM SELECTION MENU -->
+
+          <!-- BEGIN Flimma SPECIFIC Name AND Description FIELDS -->
+          <div class="field" *ngIf="newProject.tool === 'Flimma' && newProject.algorithm !== 'Select'">
+              <label class="label" for="npName">Project Title</label>
+              <div class="control" style="width:30%">
+                <input class="input" [(ngModel)]="newProject.name" id="npName" placeholder="Name of the project" />
+              </div>
+          </div>
+
+          <div class="field" *ngIf="newProject.tool === 'Flimma' && newProject.algorithm !== 'Select'">
+              <label class="label" for="npDescription">Project Description</label>
+              <div class="control" style="width:70%">
+                <input class="input" [(ngModel)]="newProject.description" id="npDescription" placeholder="Description of the project" />
+              </div>
+          </div>
+          <!-- END Flimma SPECIFIC Name AND Description FIELDS -->
+          
+	  <!-- BEGIN Flimma SPECIFIC NORMALIZATION METHOD SELECTION MENU -->
+          <div class="field" *ngIf="newProject.tool === 'Flimma'">
+              <label class="label" for="npNormalization">Normalization method</label>
+              <div class="select">
+                <select class="input" [(ngModel)]="newProject.normalization" id="npNormalization">
+                  <option value="Select">Select</option>
+                  <option value="UQ">Upper Quartile</option>
+                </select>
+              </div>
+          </div>
+          <!-- END Flimma SPECIFIC NORMALIZATION SELECTION MENU -->
+	  
+	  <!-- BEGIN Filtering PARAMETER INPUTS-->
+          <div class="field" *ngIf="newProject.tool === 'Flimma' && newProject.algorithm !== 'Select'">
+                 <label class="label" for="npMinCount">Minimum count threshold</label>
+                 <div class="control" style="width:40%">
+                     <input class="input" [(ngModel)]="newProject.min_count" id="npMinCount" placeholder="10" />
+                 </div>
+          </div>
+
+          <div class="field" *ngIf="newProject.tool === 'Flimma' && newProject.algorithm !== 'Select'">
+                 <label class="label" for="npMinTotalCount">Minimum total count threshold</label>
+                 <div class="control" style="width:40%">
+                     <input class="input" [(ngModel)]="newProject.min_total_count" id="npMinTotalCount" placeholder="15" />
+                 </div>
+          </div>
+          
+	  <!-- END Filtering PARAMETER INPUTS-->
+          
+          <!-- BEGIN Flimma target class labels and confounders INPUTS-->
+          
+          <div class="field" *ngIf="newProject.tool === 'Flimma' && newProject.algorithm !== 'Select'">
+                 <label class="label" for="npGroup1">Target Class 1</label>
+                 <div class="control" style="width:40%">
+                     <input class="input" [(ngModel)]="newProject.group1" id="npGroup1" placeholder="e.g. Lum" />
+                 </div>
+
+          </div>
+          <div class="field" *ngIf="newProject.tool === 'Flimma' && newProject.algorithm !== 'Select'">
+                 <label class="label" for="npGroup2">Target Class 2</label>
+                 <div class="control" style="width:40%">
+                     <input class="input" [(ngModel)]="newProject.group2" id="npGroup2" placeholder="e.g. Basal" />
+                 </div>
+          </div>
+          
+          <div class="field" *ngIf="newProject.tool === 'Flimma' && newProject.algorithm !== 'Select'">
+                 <label class="label" for="npConfounders">Confounders</label>
+                 <div class="control" style="width:40%">
+                     <input class="input" [(ngModel)]="newProject.confounders" id="npConfounders" placeholder="diagnosis_age,stage)" />
+                 </div>
+          </div>
+          <p class="help">
+            Comma separated names of confounding factors (e.g. diagnosis_age, stage)
+          </p>
+          
+          <!-- END Flimma target class labels and confounders INPUTS-->
+
+
+          <!-- BEGIN Flimma SPECIFIC DISABLE/ENABLE Create BUTTON -->
+          <div class="field">
+            <div class="control">
+              <div class="buttons">
+                <button class="button is-success" [disabled]="newProject.tool === 'Select' || newProject.algorithm === 'Select' || newProject.normalization === 'Select' || !newProject.group1 || !newProject.group2 || !newProject.confounders"
+                        (click)="createProject()">
+                  <i class="fa fa-plus icon"></i>
+                  <span>Create</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- END Flimma SPECIFIC DISABLE/ENABLE Create BUTTON -->
+
+        </div>
+      </div>
+    </div>
+
+    <!-- List of projects -->
+    <div class="card">
+      <div class="card-content">
+        <div class="content">
+          <h3>Projects</h3>
+          <table class="table" *ngIf="projects.length > 0">
+            <thead>
+            <tr>
+              <th>ID</th>
+              <th>Tool</th>
+              <th>Algorithm</th>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Step</th>
+              <th>Round</th>
+              <th>Role(s)</th>
+              <th>Created at</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let proj of projects">
+              <td>
+                <a routerLink="/project/{{proj.id}}">
+                   {{proj.id | slice:0:5}}
+                </a>
+              </td>
+              <td>
+                   {{proj.tool}}
+              </td>
+              <td>
+                  {{proj.algorithm}}
+              </td>
+              <td>
+                  {{proj.name}}
+              </td>
+              <td>
+                <div class="tags">
+                  <span class="tag is-warning"  *ngIf="proj.status === 'Created'" >{{proj.status}}</span>
+                  <span class="tag is-primary"  *ngIf="proj.status === 'Parameters Ready'" >{{proj.status}}</span>
+                  <span class="tag is-link"     *ngIf="proj.status === 'Aggregating'" >{{proj.status}}</span>
+                  <span class="tag is-success"  *ngIf="proj.status === 'Done'" >{{proj.status}}</span>
+                  <span class="tag is-danger"   *ngIf="proj.status === 'Failed' || proj.status === 'Aborted'" >{{proj.status}}</span>
+                </div>
+              </td>
+
+              <td>{{proj.step}}</td>
+
+              <td>{{proj.commRound}}</td>
+              <td>
+                <div class="tags">
+                  <span *ngFor="let role of proj.roles" class="tag" [ngClass]="{'is-warning': role === 'coordinator', 'is-info': role === 'participant'}">{{role}}</span>
+                </div>
+              </td>
+              <td>
+                {{proj.createdAt | date: "short"}}
+              </td>
+              <td>
+                <div class="buttons">
+                  <button class="button is-small is-danger"
+                          (click)="deleteProject(proj)"
+                          [disabled]="!haveRole(proj, 'coordinator')">
+                    <i class="fa fa-trash-o"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <p>
+            <i class="table" *ngIf="projects.length == 0">
+              No project has been created yet!
+            </i>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
